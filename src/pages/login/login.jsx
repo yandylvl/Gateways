@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form";
 import { Link as RouterLink } from "react-router-dom";
 import * as yup from "yup";
 import YupPassword from "yup-password";
+import MiniLogo from "../../components/mini-logo/minilogo";
 
 YupPassword(yup); // extend yup
 
@@ -68,6 +69,10 @@ const Login = () => {
             alignItems: "center",
           }}
         >
+          <Link component={RouterLink} to="/">
+            <MiniLogo />
+          </Link>
+
           <Typography component="h1" variant="h5">
             Log in
           </Typography>
