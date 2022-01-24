@@ -23,12 +23,17 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
+
+import { drawerToggled } from "../../../store/modules/ui/drawer";
 
 const DrawerMenu = () => {
   const theme = useTheme();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const dispatch = useDispatch();
+  const isMenuOpen = useSelector((state) => state.ui.drawer.isDrawerOpen);
+
   const [isSettingsOpen, setIsSettingsOpen] = useState(true);
 
   const closeDrawer = (event) => {
@@ -39,7 +44,7 @@ const DrawerMenu = () => {
       return;
     }
 
-    setIsMenuOpen(false);
+    dispatch(drawerToggled({ isOpen: false }));
   };
 
   const toggleSettings = () => {
@@ -47,7 +52,7 @@ const DrawerMenu = () => {
   };
 
   const openDrawer = () => {
-    setIsMenuOpen(true);
+    dispatch(drawerToggled({ isOpen: true }));
   };
 
   const list = () => (
