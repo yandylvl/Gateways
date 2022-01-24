@@ -1,0 +1,7 @@
+@import "../../theme/variables.scss";
+
+.header {
+  &.MuiAppBar-root {
+    background-color: $dark-bg-color;
+  }
+}

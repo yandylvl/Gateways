@@ -4,8 +4,9 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import React from "react";
-import { Route, Routes, Navigate, BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import { Header } from "../../components";
 import createTheme from "../../theme/theme";
 import {
   GatewayCreate,
@@ -46,8 +47,12 @@ const App = () => {
       <CssBaseline />
       <StyledEngineProvider injectFirst>
         {/* Your component tree. Now you can override MUI's styles. */}
-        Routed App
-        <BrowserRouter>{renderRoutes()}</BrowserRouter>
+
+        <BrowserRouter>
+          <Header />
+
+          {renderRoutes()}
+        </BrowserRouter>
       </StyledEngineProvider>
     </ThemeProvider>
   );
