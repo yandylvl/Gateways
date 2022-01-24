@@ -1,3 +1,5 @@
+import "../../theme/global.scss";
+
 import {
   CssBaseline,
   StyledEngineProvider,

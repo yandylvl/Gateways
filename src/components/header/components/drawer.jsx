@@ -1,13 +1,13 @@
 import {
   Assignment,
+  DevicesOther,
   Diamond,
   ExpandLess,
   ExpandMore,
-  Router,
   ManageAccounts,
   Menu,
+  Router,
   Settings,
-  DevicesOther,
 } from "@mui/icons-material";
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   Divider,
   Drawer,
   IconButton,
+  Link,
   List,
   ListItem,
   ListItemIcon,
@@ -22,6 +23,7 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React, { useState } from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const DrawerMenu = () => {
   const theme = useTheme();
@@ -51,18 +53,22 @@ const DrawerMenu = () => {
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
       <List onClick={closeDrawer} onKeyDown={closeDrawer}>
-        <ListItem button>
-          <ListItemIcon>
-            <Router color="primary" />
-          </ListItemIcon>
-          <ListItemText primary="Gateways" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <DevicesOther color="primary" />
-          </ListItemIcon>
-          <ListItemText primary="Peripherals" />
-        </ListItem>
+        <Link component={RouterLink} to="/gateways">
+          <ListItem button>
+            <ListItemIcon>
+              <Router color="primary" />
+            </ListItemIcon>
+            <ListItemText primary="Gateways" />
+          </ListItem>
+        </Link>
+        <Link component={RouterLink} to="/peripherals">
+          <ListItem button>
+            <ListItemIcon>
+              <DevicesOther color="primary" />
+            </ListItemIcon>
+            <ListItemText primary="Peripherals" />
+          </ListItem>
+        </Link>
         <ListItem button>
           <ListItemIcon>
             <Assignment color="primary" />
