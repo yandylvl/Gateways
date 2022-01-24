@@ -1,0 +1,17 @@
+// Create your Sass color vars (will be available in all the project)
+$primary: #098d7f;
+$primary-dark: teal;
+$secondary: #ffab00;
+$secondary-dark: #ffa000;
+$warn: #f44336;
+
+$dark-bg-color: #151b20;
+
+:export {
+  primary: $primary;
+  primaryDark: $primary-dark;
+  secondary: $secondary;
+  secondaryDark: $secondary-dark;
+  warn: $warn;
+  bgDarkColor: $dark-bg-color;
+}
