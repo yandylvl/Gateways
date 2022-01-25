@@ -12,10 +12,17 @@ import {
 } from "@mui/material/";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link as RouterLink } from "react-router-dom";
+import { useSelector } from "react-redux";
+import {
+  Link as RouterLink,
+  Navigate,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import MiniLogo from "../../components/mini-logo/minilogo";
+
+import { GoogleButton, MiniLogo } from "../../components/";
 
 YupPassword(yup); // extend yup
 
@@ -34,7 +41,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="http://localhost:3000">
-        coinfianza
+        GateWays
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -43,6 +50,10 @@ function Copyright(props) {
 }
 
 const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+
   const {
     register,
     handleSubmit,
@@ -59,6 +70,8 @@ const Login = () => {
   };
 
   const renderLogin = () => {
+    // TODO: Refactor with SignUp
+
     return (
       <Container component="main" maxWidth="xs">
         <Box
@@ -120,7 +133,18 @@ const Login = () => {
             >
               Log In
             </Button>
+            <GoogleButton
+              navigate={() => {
+                console.log(`login path: ${JSON.stringify(location)}`);
+                const navTo = location.state
+                  ? location.state.from
+                  : "/gateways";
 
+                navigate(navTo, { replace: true });
+              }}
+            >
+              log in with google
+            </GoogleButton>
             <Grid container>
               <Grid item xs>
                 <Link component={RouterLink} to="/signup" variant="body2">
@@ -140,7 +164,11 @@ const Login = () => {
     );
   };
 
-  return <React.Fragment>{renderLogin()}</React.Fragment>;
+  return (
+    <React.Fragment>
+      {isSignedIn ? <Navigate to="/gateways" /> : renderLogin()}
+    </React.Fragment>
+  );
 };
 
 export default React.memo(Login);

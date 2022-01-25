@@ -48,6 +48,7 @@ export const initGoogleAuth = () => (dispatch) => {
 };
 
 const updateSignInStatus = () => (dispatch) => {
+  console.log(`entro al status`);
   const isSignedIn = googleAuth.isSignedIn();
 
   const userInfo = {

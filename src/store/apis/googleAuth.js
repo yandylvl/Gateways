@@ -9,6 +9,7 @@ export default class GoogleAuth {
   }
 
   init() {
+    console.log(`init ${this.auth2}`);
     return new Promise((resolve, reject) => {
       window.gapi.load("auth2", () => {
         window.gapi.auth2

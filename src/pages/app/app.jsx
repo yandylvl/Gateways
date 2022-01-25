@@ -5,7 +5,7 @@ import {
   StyledEngineProvider,
   ThemeProvider,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { Header } from "../../components";
@@ -20,10 +20,19 @@ import Landing from "../landing/landing";
 import Login from "../login/login";
 import NotFound from "../not-found/not-found";
 import Signup from "../signup/signup";
+import { useDispatch } from "react-redux";
+import { initGoogleAuth } from "../../store/modules/auth/auth";
 
 const theme = createTheme;
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  //Initialize Google oAuth to allow proper update of isSignedIn
+  useEffect(() => {
+    dispatch(initGoogleAuth());
+    console.log("entro useEffect");
+  }, [dispatch]);
   const renderRoutes = () => {
     return (
       <Routes>

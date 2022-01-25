@@ -2,12 +2,20 @@ import { Logout, ManageAccounts, Person } from "@mui/icons-material";
 import { Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React, { useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { tryLogoutFormGoogle } from "../../../store/modules/auth/auth";
+
 const ProfileSettings = () => {
+  const profileImage = useSelector((state) => state.auth.profilePicUrl);
+  const profileName = useSelector((state) => state.auth.profileName);
+
   const navigate = useNavigate();
 
   const theme = useTheme();
+
+  const dispatch = useDispatch();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -24,9 +32,9 @@ const ProfileSettings = () => {
   const handleLogoutClick = useCallback(
     (event) => {
       event.preventDefault();
-      navigate("/", { replace: true });
+      dispatch(tryLogoutFormGoogle(navigate("/", { replace: true })));
     },
-    [navigate]
+    [dispatch, navigate]
   );
 
   const menuId = "primary-search-account-menu";
@@ -66,8 +74,8 @@ const ProfileSettings = () => {
         color="secondary"
       >
         <Avatar
-          alt="Yandy Viera"
-          src="pathToImg"
+          alt={profileName}
+          src={profileImage}
           sx={{
             width: 24,
             height: 24,
