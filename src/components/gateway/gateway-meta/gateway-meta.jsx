@@ -5,7 +5,7 @@ import { Avatar, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import React from "react";
 
-const GatewayMeta = ({ username, image }) => {
+const GatewayMeta = ({ name }) => {
   const theme = useTheme();
 
   return (
@@ -19,7 +19,7 @@ const GatewayMeta = ({ username, image }) => {
         />
       </Avatar>
       <span className="gateway-name">
-        <Typography component={"span"}>human readable</Typography>
+        <Typography component={"span"}>{name}</Typography>
       </span>
     </div>
   );

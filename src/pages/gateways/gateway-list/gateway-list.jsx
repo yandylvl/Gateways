@@ -19,7 +19,7 @@ const GatewayList = () => {
   const renderGatewaysList = () => {
     return gateways.map((gateway) => (
       <Grid item xs md={6} key={gateway.id}>
-        <GatewayCard />
+        <GatewayCard {...gateway} />
       </Grid>
     ));
   };

@@ -15,23 +15,23 @@ import { createHeadingFontTheme } from "../../../theme/theme";
 import { GatewayMeta } from "../../gateway";
 import PeripheralsItems from "./../peripherals-items/peripherals-items";
 
-const GatewayCard = () => {
+const GatewayCard = ({ serialNumber, name, address }) => {
   const themeFont = createHeadingFontTheme;
 
   return (
     <ThemeProvider theme={themeFont}>
       <Card className="dashboard-card">
         <CardContent className="dashboard-card-content">
-          <GatewayMeta></GatewayMeta>
+          <GatewayMeta name={name}></GatewayMeta>
 
           <Typography component="span" className="serial-number">
-            123FT54RED32s
+            {serialNumber}
           </Typography>
           <Typography component="p" className="sub">
             IPv4
           </Typography>
           <Typography component="span" className="address">
-            154.182.54.6
+            {address}
           </Typography>
         </CardContent>
         <CardActions className="gateway-card-action">
