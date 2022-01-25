@@ -20,8 +20,6 @@ const slice = createSlice({
       auth,
       { payload: { isSignedIn, userId, profileName, profilePicUrl } }
     ) => {
-      console.log(`entro al authChanged`);
-
       auth.isSignedIn = isSignedIn;
       auth.userId = userId;
       auth.profileName = profileName;
@@ -48,7 +46,6 @@ export const initGoogleAuth = () => (dispatch) => {
 };
 
 const updateSignInStatus = () => (dispatch) => {
-  console.log(`entro al status`);
   const isSignedIn = googleAuth.isSignedIn();
 
   const userInfo = {

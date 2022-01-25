@@ -135,7 +135,6 @@ const Login = () => {
             </Button>
             <GoogleButton
               navigate={() => {
-                console.log(`login path: ${JSON.stringify(location)}`);
                 const navTo = location.state
                   ? location.state.from
                   : "/gateways";

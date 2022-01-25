@@ -31,7 +31,6 @@ const App = () => {
   //Initialize Google oAuth to allow proper update of isSignedIn
   useEffect(() => {
     dispatch(initGoogleAuth());
-    console.log("entro useEffect");
   }, [dispatch]);
   const renderRoutes = () => {
     return (
@@ -40,7 +39,7 @@ const App = () => {
         <Route path="/login" exact element={<Login />} />
         <Route path="/signup" exact element={<Signup />} />
         <Route path="/gateways" exact element={<GatewayList />} />
-        <Route path="/gateways/new" exact element={<GatewayCreate />} />
+        <Route path="/gateways/create" exact element={<GatewayCreate />} />
         <Route
           path="/gateways/details/:id"
           exact

@@ -9,7 +9,6 @@ export default class GoogleAuth {
   }
 
   init() {
-    console.log(`init ${this.auth2}`);
     return new Promise((resolve, reject) => {
       window.gapi.load("auth2", () => {
         window.gapi.auth2
@@ -51,7 +50,6 @@ export default class GoogleAuth {
   }
 
   signInListen(callback) {
-    console.log("entro callback");
     return this.auth2?.isSignedIn.listen(callback);
   }
 }
