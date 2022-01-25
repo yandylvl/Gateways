@@ -1,0 +1,90 @@
+@import "../../../theme/variables.scss";
+
+.dashboard-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #eee;
+
+  &:hover {
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+      0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+  }
+
+  &::before {
+    content: "";
+    display: inline-block;
+
+    position: absolute;
+    background-color: rgba(9, 141, 127, 0.2);
+    width: 250px;
+    height: 220px;
+    // z-index: 1;
+
+    top: 0;
+    left: 0;
+
+    transform: translate(-50%, -50%) rotate(-45deg);
+
+    box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 50%) inset,
+      0px 4px 5px 0px rgb(0 0 0 / 44%) inset,
+      0px 1px 10px 0px rgb(0 0 0 / 42%) inset;
+  }
+}
+
+.mat-card-header-text {
+  margin: 0;
+}
+
+.dashboard-card-content {
+  text-align: right;
+}
+
+:host-context(.selected) .dashboard-card {
+  box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+    0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+
+.gateway-card-action {
+  padding: 0 16px 16px;
+  justify-content: space-between;
+}
+
+:host ::ng-deep .mat-button-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.serial-number {
+  font-weight: 600;
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.posted-since {
+  right: 50%;
+  transform: translateX(50%);
+  display: inline-block;
+  position: absolute;
+}
+
+.sub {
+  font-size: 14px;
+  color: #767676;
+  margin-top: 10px;
+}
+
+.address {
+  font-size: 18px;
+  font-weight: 500;
+  color: $primary;
+}
+
+// @media (min-width: 768px) {
+//   .star-rating {
+//     position: absolute;
+//     top: 30px;
+//     right: 17px;
+//   }
+// }
