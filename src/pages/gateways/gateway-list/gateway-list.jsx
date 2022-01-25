@@ -1,7 +1,10 @@
+import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RequireAuth } from "../../../components";
 import { GatewayCard } from "../../../components/gateway";
+import { Link as RouterLink } from "react-router-dom";
+
 import { loadGateways } from "../../../store/modules/entities/gateways";
 
 const GatewayList = () => {
@@ -13,10 +16,62 @@ const GatewayList = () => {
     dispatch(loadGateways());
   }, [dispatch]);
 
+  const renderGatewaysList = () => {
+    return gateways.map((gateway) => (
+      <Grid item xs md={6} key={gateway.id}>
+        <GatewayCard />
+      </Grid>
+    ));
+  };
+
   return (
-    <div>
-      <GatewayCard />
-    </div>
+    <Container maxWidth="xl">
+      {/*TODO: refactor to a component */}
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        py={2}
+      >
+        <Typography variant="h4" component="h1">
+          Gateways
+        </Typography>
+
+        <Button
+          variant="contained"
+          component={RouterLink}
+          to="/gateways/create"
+          sx={{ textTransform: "none" }}
+        >
+          Create New Gateway
+        </Button>
+      </Grid>
+
+      <React.Fragment>
+        <Grid
+          container
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          py={1}
+        >
+          <Box>
+            <Typography sx={{ display: { xs: "none", sm: "inline" } }}>
+              Showing {gateways.length} gateways
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid
+          container
+          spacing={2}
+          justifyContent="space-between"
+          direction={{ xs: "column", md: "row" }}
+        >
+          {renderGatewaysList()}
+        </Grid>
+      </React.Fragment>
+    </Container>
   );
 };
 

@@ -33,10 +33,6 @@
   }
 }
 
-.mat-card-header-text {
-  margin: 0;
-}
-
 .dashboard-card-content {
   text-align: right;
 }
@@ -51,22 +47,10 @@
   justify-content: space-between;
 }
 
-:host ::ng-deep .mat-button-wrapper {
-  display: flex;
-  align-items: center;
-}
-
 .serial-number {
   font-weight: 600;
   font-size: 20px;
   text-transform: uppercase;
-}
-
-.posted-since {
-  right: 50%;
-  transform: translateX(50%);
-  display: inline-block;
-  position: absolute;
 }
 
 .sub {
@@ -80,11 +64,3 @@
   font-weight: 500;
   color: $primary;
 }
-
-// @media (min-width: 768px) {
-//   .star-rating {
-//     position: absolute;
-//     top: 30px;
-//     right: 17px;
-//   }
-// }

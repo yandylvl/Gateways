@@ -5,7 +5,6 @@ import {
   Card,
   CardActions,
   CardContent,
-  Rating,
   ThemeProvider,
   Typography,
 } from "@mui/material";
