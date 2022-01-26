@@ -21,7 +21,14 @@ const api =
       });
       dispatch(actions.apiCallSuccess(response.data));
 
-      if (onSuccess) dispatch({ type: onSuccess, payload: response.data });
+      if (onSuccess) {
+        //just because json-server doesn't return the Id of the deleted element
+        const payload = method === "delete" ? data : response.data;
+        dispatch({
+          type: onSuccess,
+          payload: payload,
+        });
+      }
     } catch (error) {
       dispatch(actions.apiCallFailed(error.message));
 

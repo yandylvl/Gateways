@@ -50,7 +50,8 @@ const slice = createSlice({
       gateways.errors = msg;
     },
     gatewayDeleted: (gateways, action) => {
-      gateways.list.push(action.payload);
+      gateways.list = gateways.list.filter((g) => g.id !== action.payload);
+      gateways.selected = null;
     },
     gatewayDeleteFailed: (gateways, action) => {
       gateways.loading = false;
@@ -115,6 +116,7 @@ export const deleteGateway = (gatewayId) =>
   apiCallBegan({
     url: `${url}/${gatewayId}`,
     method: "delete",
+    data: gatewayId,
     onSuccess: gatewayDeleted.type,
     onError: gatewayDeleteFailed.type,
   });
