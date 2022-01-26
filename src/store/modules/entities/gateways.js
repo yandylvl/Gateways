@@ -49,6 +49,17 @@ const slice = createSlice({
         msg = "There is already a gateway with the provided Serial Number";
       gateways.errors = msg;
     },
+    gatewayDeleted: (gateways, action) => {
+      gateways.list.push(action.payload);
+    },
+    gatewayDeleteFailed: (gateways, action) => {
+      gateways.loading = false;
+      //TODO: improve handling type of error
+      let msg = action.payload.message;
+      if (action.payload.status === 404)
+        msg = "This gateway has already been deleted";
+      gateways.errors = msg;
+    },
   },
 });
 
@@ -61,6 +72,8 @@ const {
   getGatewayRequestFailed,
   gatewayAdded,
   gatewayAddFailed,
+  gatewayDeleted,
+  gatewayDeleteFailed,
 } = slice.actions;
 export default slice.reducer;
 
@@ -96,6 +109,14 @@ export const addGateway = (gateway) =>
     data: gateway,
     onSuccess: gatewayAdded.type,
     onError: gatewayAddFailed.type,
+  });
+
+export const deleteGateway = (gatewayId) =>
+  apiCallBegan({
+    url: `${url}/${gatewayId}`,
+    method: "delete",
+    onSuccess: gatewayDeleted.type,
+    onError: gatewayDeleteFailed.type,
   });
 
 //

@@ -2,7 +2,7 @@ import { ArrowBackIos } from "@mui/icons-material";
 import { Box, Button, Container, Divider, Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link as RouterLink, useParams } from "react-router-dom";
+import { Link as RouterLink, useNavigate, useParams } from "react-router-dom";
 
 import {
   GatewayCard,
@@ -10,10 +10,14 @@ import {
   ProgressBar,
   RequireAuth,
 } from "../../../components";
-import { getGateway } from "../../../store/modules/entities/gateways";
+import {
+  deleteGateway,
+  getGateway,
+} from "../../../store/modules/entities/gateways";
 
 const GatewayDetails = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { id: gatewayId } = useParams();
 
   // const gateway = useSelector((state) => state.entities.gateways.selected);
@@ -26,6 +30,11 @@ const GatewayDetails = () => {
   useEffect(() => {
     dispatch(getGateway(gatewayId));
   }, [dispatch, gatewayId]);
+
+  const handleDelete = () => {
+    dispatch(deleteGateway("gatewayId"));
+    navigate("/gateways");
+  };
 
   const renderPeripherals = () => {
     return gateway?.peripherals.map((p) => (
@@ -68,23 +77,30 @@ const GatewayDetails = () => {
               <Divider sx={{ py: 3 }} />
 
               <Grid container spacing={2} justifyContent="center" pt={2}>
-                <Grid item>
+                <Grid item xs={12} sm={6} md={2}>
                   <Button
                     variant="contained"
                     component={RouterLink}
                     to={`/gateways/edit/${gateway?.id}`}
                     color="secondary"
-                    sx={{ textTransform: "none" }}
+                    sx={{
+                      textTransform: "none",
+                      width: "100%",
+                    }}
                   >
                     Edit
                   </Button>
                 </Grid>
 
-                <Grid item>
+                <Grid item xs={12} sm={6} md={2}>
                   <Button
                     variant="contained"
                     color="error"
-                    sx={{ textTransform: "none" }}
+                    sx={{
+                      textTransform: "none",
+                      width: "100%",
+                    }}
+                    onClick={handleDelete}
                   >
                     Delete
                   </Button>
