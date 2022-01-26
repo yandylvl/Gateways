@@ -6,22 +6,22 @@ import {
   ThemeProvider,
 } from "@mui/material";
 import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { Header } from "../../components";
+import { initGoogleAuth } from "../../store/modules/auth/auth";
 import createTheme from "../../theme/theme";
 import {
   GatewayCreate,
-  GatewayDelete,
   GatewayDetails,
+  GatewayEdit,
   GatewayList,
 } from "../gateways";
 import Landing from "../landing/landing";
 import Login from "../login/login";
 import NotFound from "../not-found/not-found";
 import Signup from "../signup/signup";
-import { useDispatch } from "react-redux";
-import { initGoogleAuth } from "../../store/modules/auth/auth";
 
 const theme = createTheme;
 
@@ -45,7 +45,7 @@ const App = () => {
           exact
           element={<GatewayDetails />}
         />
-        <Route path="/gateways/delete/:id" exact element={<GatewayDelete />} />
+        <Route path="/gateways/edit/:id" exact element={<GatewayEdit />} />
         <Route path="/not-found" exact element={<NotFound />} />
         <Route path="*" element={<Navigate to="/not-found" />} />
       </Routes>

@@ -21,7 +21,6 @@ const slice = createSlice({
       gateways.errors.length = 0;
     },
     gatewaysRequestFailed: (gateways, action) => {
-      console.log(`entro a gatewaysRequestFailed`);
       gateways.loading = false;
       gateways.errors.push(action.payload.message);
     },

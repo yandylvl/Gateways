@@ -1,5 +1,6 @@
+import "./gateway-card.scss";
+
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -7,13 +8,11 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
+
 import { createHeadingFontTheme } from "../../../theme/theme";
 import { GatewayMeta } from "../../gateway";
-import PeripheralsItems from "./../peripherals-items/peripherals-items";
-import "./gateway-card.scss";
 
-const GatewayCard = ({ serialNumber, name, address, peripherals, id }) => {
+const GatewayCard = ({ serialNumber, name, address, children }) => {
   const themeFont = createHeadingFontTheme;
 
   return (
@@ -32,19 +31,7 @@ const GatewayCard = ({ serialNumber, name, address, peripherals, id }) => {
             {address}
           </Typography>
         </CardContent>
-        <CardActions className="gateway-card-action">
-          <PeripheralsItems peripherals={peripherals} />
-
-          <Button
-            variant="contained"
-            component={RouterLink}
-            to={`/gateways/details/${id}`}
-            color="secondary"
-            sx={{ textTransform: "none" }}
-          >
-            Details
-          </Button>
-        </CardActions>
+        <CardActions className="gateway-card-action">{children}</CardActions>
       </Card>
     </ThemeProvider>
   );

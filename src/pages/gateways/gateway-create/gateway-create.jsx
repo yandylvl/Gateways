@@ -11,7 +11,6 @@ import {
   ThemeProvider,
   Typography,
 } from "@mui/material";
-import dateFormat from "dateformat";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -81,7 +80,7 @@ const GatewayCreate = () => {
         {
           UID,
           vendor: "",
-          date: dateFormat(now, "isoDateTime"),
+          date: now,
           status: false,
         },
       ]);
