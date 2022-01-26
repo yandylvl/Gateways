@@ -1,4 +1,3 @@
-import { ArrowBackIos } from "@mui/icons-material";
 import { Box, Button, Container, Divider, Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import {
   ProgressBar,
   RequireAuth,
 } from "../../../components";
+import BackToButton from "../../../components/back-to-button/back-to-button";
 import {
   deleteGateway,
   getGateway,
@@ -48,14 +48,7 @@ const GatewayDetails = () => {
   return (
     <Container maxWidth="lg">
       <Box sx={{ py: 3 }}>
-        <Button
-          component={RouterLink}
-          to={`/gateways`}
-          sx={{ textTransform: "none" }}
-          startIcon={<ArrowBackIos />}
-        >
-          Back to Gateways
-        </Button>
+        <BackToButton dir={"gateways"} />
       </Box>
       {loading ? (
         <ProgressBar />
