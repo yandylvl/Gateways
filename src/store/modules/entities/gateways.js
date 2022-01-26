@@ -21,8 +21,9 @@ const slice = createSlice({
       gateways.errors.length = 0;
     },
     gatewaysRequestFailed: (gateways, action) => {
+      console.log(`entro a gatewaysRequestFailed`);
       gateways.loading = false;
-      gateways.errors.push(action.payload);
+      gateways.errors.push(action.payload.message);
     },
     gatewayReceived: (gateways, action) => {
       gateways.selected = action.payload;
@@ -33,8 +34,11 @@ const slice = createSlice({
     },
     gatewayAddFailed: (gateways, action) => {
       gateways.loading = false;
-      //TODO: handle type of error
-      gateways.errors.push(action.payload);
+      //TODO: improve handling type of error
+      let msg = action.payload.message;
+      if (action.payload.status === 500)
+        msg = "There is already a gateway with the provided Serial Number";
+      gateways.errors.push(msg);
     },
   },
 });
@@ -79,7 +83,6 @@ export const addGateway = (gateway) =>
     url,
     method: "post",
     data: gateway,
-    onStart: gatewaysRequested.type,
     onSuccess: gatewayAdded.type,
     onError: gatewayAddFailed.type,
   });

@@ -1,10 +1,9 @@
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RequireAuth } from "../../../components";
-import { GatewayCard } from "../../../components/gateway";
 import { Link as RouterLink } from "react-router-dom";
 
+import { GatewayCard, RequireAuth } from "../../../components";
 import { loadGateways } from "../../../store/modules/entities/gateways";
 
 const GatewayList = () => {

@@ -8,7 +8,7 @@ const PeripheralsItems = ({ peripherals }) => {
 
   const renderPeripherals = () => {
     return peripherals.map((peripheral) => (
-      <Grid item xs="auto" key={peripheral.id}>
+      <Grid item xs="auto" key={peripheral.UID}>
         <Avatar sx={{ width: 20, height: 20 }}>
           {peripheral.status ? (
             <Usb sx={{ fontSize: 16, color: theme.palette.primary.main }} />

@@ -1,5 +1,5 @@
-import http from "../services/httpService";
 import * as actions from "../actions/api";
+import http from "../services/httpService";
 
 const api =
   ({ dispatch }) =>
@@ -25,7 +25,12 @@ const api =
     } catch (error) {
       dispatch(actions.apiCallFailed(error.message));
 
-      if (onError) dispatch({ type: onError, payload: error.message });
+      if (onError) {
+        dispatch({
+          type: onError,
+          payload: { message: error.message, status: error.response?.status },
+        });
+      }
     }
   };
 
