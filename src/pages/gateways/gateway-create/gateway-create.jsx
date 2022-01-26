@@ -20,24 +20,14 @@ import * as yup from "yup";
 import { PeripheralsList, RequireAuth } from "../../../components";
 import { addGateway } from "../../../store/modules/entities/gateways";
 import { createHeadingFontTheme } from "../../../theme/theme";
+import { ipv4 } from "../../../utils/yup-helpers";
+
+yup.addMethod(yup.string, "ipv4", ipv4);
 
 const schema = yup.object({
   serialNumber: yup.string().required(),
   name: yup.string().required(),
-  address: yup
-    .string()
-    .matches(
-      /^(?=\d+\.\d+\.\d+\.\d+(\/\d+)?$)(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]|[0-9])\.?){4}(?:\/(?:[0-9]|1[0-9]|2[0-9]|3[0-2]))?$/,
-      {
-        message: "Invalid IP address",
-        excludeEmptyString: true,
-      }
-    )
-    .test("ip", "Invalid IP address", (value) => {
-      return value === undefined || value.trim() === ""
-        ? true
-        : value.split(".").find((i) => parseInt(i, 10) > 255) === undefined;
-    }),
+  address: yup.string().ipv4(),
 });
 
 const GatewayCreate = () => {
