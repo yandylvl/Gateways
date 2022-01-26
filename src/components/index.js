@@ -5,5 +5,6 @@ export { default as RequireAuth } from "./require-auth/require-auth";
 export * from "./gateway";
 export { default as PeripheralsList } from "./peripherals-list/peripherals-list";
 export { default as PeripheralCard } from "./peripheral-card/peripheral-card";
+export { default as ProgressBar } from "./progress-bar/progress-bar";
 
 //TODO: add the rest of exports

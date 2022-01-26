@@ -8,7 +8,7 @@ const slice = createSlice({
     list: [],
     selected: null,
     loading: false,
-    errors: [],
+    errors: "",
     // lastFetch: null,
   },
   reducers: {
@@ -18,15 +18,25 @@ const slice = createSlice({
     gatewaysReceived: (gateways, action) => {
       gateways.list = action.payload;
       gateways.loading = false;
-      gateways.errors.length = 0;
+      gateways.errors = "";
     },
     gatewaysRequestFailed: (gateways, action) => {
       gateways.loading = false;
-      gateways.errors.push(action.payload.message);
+      gateways.errors = action.payload.message;
     },
-    gatewayReceived: (gateways, action) => {
+    getGatewayRequested: (gateways, action) => {
+      gateways.loading = true;
+    },
+    getGatewayReceived: (gateways, action) => {
       gateways.selected = action.payload;
       gateways.loading = false;
+    },
+    getGatewayRequestFailed: (gateways, action) => {
+      gateways.loading = false;
+      let msg = action.payload.message;
+      if (action.payload.status === 404)
+        msg = "The requested gateway could not be found";
+      gateways.errors = msg;
     },
     gatewayAdded: (gateways, action) => {
       gateways.list.push(action.payload);
@@ -37,7 +47,7 @@ const slice = createSlice({
       let msg = action.payload.message;
       if (action.payload.status === 500)
         msg = "There is already a gateway with the provided Serial Number";
-      gateways.errors.push(msg);
+      gateways.errors = msg;
     },
   },
 });
@@ -46,7 +56,9 @@ const {
   gatewaysReceived,
   gatewaysRequested,
   gatewaysRequestFailed,
-  gatewayReceived,
+  getGatewayReceived,
+  getGatewayRequested,
+  getGatewayRequestFailed,
   gatewayAdded,
   gatewayAddFailed,
 } = slice.actions;
@@ -72,9 +84,9 @@ export const loadGateways = () => (dispatch, getState) => {
 export const getGateway = (gatewayId) =>
   apiCallBegan({
     url: `${url}/${gatewayId}`,
-    onStart: gatewaysRequested.type,
-    onSuccess: gatewayReceived.type,
-    onError: gatewaysRequestFailed.type,
+    onStart: getGatewayRequested.type,
+    onSuccess: getGatewayReceived.type,
+    onError: getGatewayRequestFailed.type,
   });
 
 export const addGateway = (gateway) =>

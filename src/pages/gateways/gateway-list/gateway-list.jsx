@@ -6,6 +6,7 @@ import { Link as RouterLink } from "react-router-dom";
 import {
   GatewayCard,
   PeripheralsItems,
+  ProgressBar,
   RequireAuth,
 } from "../../../components";
 import { loadGateways } from "../../../store/modules/entities/gateways";
@@ -13,7 +14,11 @@ import { loadGateways } from "../../../store/modules/entities/gateways";
 const GatewayList = () => {
   const dispatch = useDispatch();
 
-  const gateways = useSelector((state) => state.entities.gateways.list);
+  const {
+    list: gateways,
+    loading,
+    errors,
+  } = useSelector((state) => state.entities.gateways);
 
   useEffect(() => {
     dispatch(loadGateways());
@@ -63,29 +68,35 @@ const GatewayList = () => {
         </Button>
       </Grid>
 
-      <React.Fragment>
-        <Grid
-          container
-          direction="row"
-          justifyContent="space-between"
-          alignItems="center"
-          py={1}
-        >
-          <Box>
-            <Typography sx={{ display: { xs: "none", sm: "inline" } }}>
-              Showing {gateways.length} gateways
-            </Typography>
-          </Box>
-        </Grid>
-        <Grid
-          container
-          spacing={2}
-          justifyContent="space-between"
-          direction={{ xs: "column", md: "row" }}
-        >
-          {renderGatewaysList()}
-        </Grid>
-      </React.Fragment>
+      {loading ? (
+        <ProgressBar />
+      ) : (
+        !errors.length && (
+          <React.Fragment>
+            <Grid
+              container
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              py={1}
+            >
+              <Box>
+                <Typography sx={{ display: { xs: "none", sm: "inline" } }}>
+                  Showing {gateways.length} gateways
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid
+              container
+              spacing={2}
+              justifyContent="space-between"
+              direction={{ xs: "column", md: "row" }}
+            >
+              {renderGatewaysList()}
+            </Grid>
+          </React.Fragment>
+        )
+      )}
     </Container>
   );
 };
