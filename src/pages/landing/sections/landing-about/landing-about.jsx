@@ -16,11 +16,11 @@ const LandingAbout = () => {
         <Grid container justifyContent="flex-end">
           <Grid item xs sm={8} md={5} className="about-container">
             <Typography className="small-text highlight">
-              WHAT IS GateWays?
+              What is GateWays?
             </Typography>
             <ThemeProvider theme={headingFont}>
               <Typography variant="h2" className="section-header">
-                The network for Cuba
+                The network of Cuba
               </Typography>
             </ThemeProvider>
             <Typography>

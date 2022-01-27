@@ -1,0 +1,17 @@
+.canvas-arrow {
+  display: inline-block;
+  position: relative;
+  transform: translateY(-10px);
+  margin: auto;
+  max-width: 100%;
+}
+
+@media (min-width: 900px) {
+  .canvas-arrow {
+    display: block;
+    margin: auto;
+    color: #f58770;
+    border-color: #f58770;
+    transform: none;
+  }
+}
