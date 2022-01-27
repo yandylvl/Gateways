@@ -1,6 +1,8 @@
 import "../../theme/global.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 import {
+  Box,
   CssBaseline,
   StyledEngineProvider,
   ThemeProvider,
@@ -9,7 +11,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { Header, Toast } from "../../components";
+import { Footer, Header, Toast } from "../../components";
 import { initGoogleAuth } from "../../store/modules/auth/auth";
 import createTheme from "../../theme/theme";
 import {
@@ -22,9 +24,15 @@ import Landing from "../landing/landing";
 import Login from "../login/login";
 import NotFound from "../not-found/not-found";
 import Signup from "../signup/signup";
-import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme;
+
+const styles = {
+  minHeight: {
+    xs: "calc(100vh - 156px)",
+    sm: "calc(100vh - 164px)",
+  },
+};
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,8 +71,10 @@ const App = () => {
 
         <BrowserRouter>
           <Header />
-
-          {renderRoutes()}
+          <Box component="main" sx={styles}>
+            {renderRoutes()}
+          </Box>
+          <Footer />
         </BrowserRouter>
       </StyledEngineProvider>
     </ThemeProvider>

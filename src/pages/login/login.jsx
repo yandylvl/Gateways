@@ -31,24 +31,6 @@ const schema = yup.object({
   password: yup.string().password().required(),
 });
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="http://localhost:3000">
-        GateWays
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -76,14 +58,14 @@ const Login = () => {
       <Container component="main" maxWidth="xs">
         <Box
           sx={{
-            marginTop: 8,
+            pt: 8,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
           <Link component={RouterLink} to="/">
-            <MiniLogo />
+            <MiniLogo color="#fff" />
           </Link>
 
           <Typography component="h1" variant="h5">
@@ -158,7 +140,6 @@ const Login = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     );
   };

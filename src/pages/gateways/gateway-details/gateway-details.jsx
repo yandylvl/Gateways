@@ -46,7 +46,7 @@ const GatewayDetails = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" sx={{ pb: 3 }}>
       <Box sx={{ py: 3 }}>
         <BackToButton dir={"gateways"} />
       </Box>

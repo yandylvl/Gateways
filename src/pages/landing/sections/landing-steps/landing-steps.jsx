@@ -1,7 +1,7 @@
 import "./landing-steps.scss";
 
 import {
-  AddShoppingCart,
+  CellTower,
   FaceRetouchingNatural,
   Fingerprint,
 } from "@mui/icons-material";
@@ -47,8 +47,8 @@ const LandingSteps = () => {
         </StepCard>
 
         <StepCard
-          icon={<AddShoppingCart color="secondary" className="step-icon" />}
-          header={"Buy & Sell"}
+          icon={<CellTower color="secondary" className="step-icon" />}
+          header={"Connect Devices"}
           body={
             "Lorem ipsum dolor sit amet, consetetur With sadipscing elitr diamnonumy eirmod tempor invidunt ut labore edolore."
           }
