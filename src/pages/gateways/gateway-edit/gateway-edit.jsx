@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { GatewayForm, RequireAuth } from "../../../components";
+import { GatewayForm, ProgressBar, RequireAuth } from "../../../components";
 import {
   editGateway,
   getGateway,
@@ -12,7 +12,9 @@ const GatewayEdit = () => {
   const navigate = useNavigate();
   const { id: gatewayId } = useParams();
 
-  const { selected: gateway } = useSelector((state) => state.entities.gateways);
+  const { selected: gateway, errors } = useSelector(
+    (state) => state.entities.gateways
+  );
 
   const [peripherals, setPeripherals] = useState(gateway?.peripherals);
 
@@ -44,19 +46,23 @@ const GatewayEdit = () => {
 
   return (
     <React.Fragment>
-      {gateway && (
-        <GatewayForm
-          peripherals={peripherals}
-          setPeripherals={setPeripherals}
-          UID={UID}
-          setUID={setUID}
-          onSubmit={onSubmit}
-          action="Edit"
-          serialNumber={gateway?.serialNumber}
-          name={gateway?.name}
-          address={gateway?.address}
-          disableSN={true}
-        />
+      {!gateway ? (
+        <ProgressBar />
+      ) : (
+        !errors.length && (
+          <GatewayForm
+            peripherals={peripherals}
+            setPeripherals={setPeripherals}
+            UID={UID}
+            setUID={setUID}
+            onSubmit={onSubmit}
+            action="Edit"
+            serialNumber={gateway?.serialNumber}
+            name={gateway?.name}
+            address={gateway?.address}
+            disableSN={true}
+          />
+        )
       )}
     </React.Fragment>
   );
