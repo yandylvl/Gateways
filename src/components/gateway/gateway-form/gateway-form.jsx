@@ -23,21 +23,25 @@ import { ipv4 } from "../../../utils/yup-helpers";
 
 yup.addMethod(yup.string, "ipv4", ipv4);
 
-const schema = yup.object({
-  serialNumber: yup.string().required(),
-  name: yup.string().required(),
-  address: yup.string().ipv4(),
-});
-
 const GatewayForm = ({
-  peripherals,
+  peripherals = [],
   setPeripherals,
   UID,
   setUID,
   onSubmit,
   action,
+  serialNumber = "",
+  name = "",
+  address = "",
+  disableSN = false,
 }) => {
   const themeFont = createHeadingFontTheme;
+
+  const schema = yup.object({
+    serialNumber: yup.string().required().default(serialNumber),
+    name: yup.string().required(),
+    address: yup.string().ipv4(),
+  });
 
   const {
     register,
@@ -50,7 +54,7 @@ const GatewayForm = ({
   const handleAddPeripheral = () => {
     const now = new Date();
 
-    if (peripherals.length < 10) {
+    if (peripherals?.length < 10) {
       setPeripherals([
         ...peripherals,
         {
@@ -122,6 +126,8 @@ const GatewayForm = ({
                   required
                   fullWidth
                   autoFocus
+                  defaultValue={serialNumber}
+                  disabled={disableSN}
                   id="serialNumber"
                   label="Serial Number"
                   name="serialNumber"
@@ -134,6 +140,7 @@ const GatewayForm = ({
                   required
                   fullWidth
                   autoFocus
+                  defaultValue={name}
                   id="name"
                   label="Name"
                   name="name"
@@ -146,6 +153,7 @@ const GatewayForm = ({
                   required
                   fullWidth
                   autoFocus
+                  defaultValue={address}
                   id="address"
                   label="IPv4 Address"
                   name="address"
@@ -163,7 +171,7 @@ const GatewayForm = ({
                 {renderPeripherals()}
               </Grid>
 
-              {peripherals.length < 10 && (
+              {peripherals?.length < 10 && (
                 <Grid item xs={12}>
                   <Divider>
                     <IconButton

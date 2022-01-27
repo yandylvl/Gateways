@@ -22,7 +22,7 @@ const PeripheralsList = ({
 }) => {
   const theme = useTheme();
 
-  return peripherals.map((peripheral, index) => (
+  return peripherals?.map((peripheral, index) => (
     <Accordion key={index}>
       <AccordionSummary
         expandIcon={<ExpandMore />}

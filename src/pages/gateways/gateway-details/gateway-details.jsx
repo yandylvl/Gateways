@@ -33,7 +33,7 @@ const GatewayDetails = () => {
 
   const handleDelete = () => {
     //TODO: use a modal to validate the delete action
-    dispatch(deleteGateway("gatewayId"));
+    dispatch(deleteGateway(gatewayId));
     navigate("/gateways");
   };
 

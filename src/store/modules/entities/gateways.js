@@ -61,6 +61,15 @@ const slice = createSlice({
         msg = "This gateway has already been deleted";
       gateways.errors = msg;
     },
+    gatewayEdited: (gateways, action) => {
+      const index = gateways.list.findIndex((g) => g.id === action.payload.id);
+      gateways.list[index] = action.payload;
+      gateways.selected = null;
+    },
+    gatewayEditFailed: (gateways, action) => {
+      //TODO: improve handling type of error
+      gateways.errors = action.payload.message;
+    },
   },
 });
 
@@ -75,6 +84,8 @@ const {
   gatewayAddFailed,
   gatewayDeleted,
   gatewayDeleteFailed,
+  gatewayEdited,
+  gatewayEditFailed,
 } = slice.actions;
 export default slice.reducer;
 
@@ -119,6 +130,14 @@ export const deleteGateway = (gatewayId) =>
     data: gatewayId,
     onSuccess: gatewayDeleted.type,
     onError: gatewayDeleteFailed.type,
+  });
+export const editGateway = (gateway) =>
+  apiCallBegan({
+    url: `${url}/${gateway.id}`,
+    method: "put",
+    data: gateway,
+    onSuccess: gatewayEdited.type,
+    onError: gatewayEditFailed.type,
   });
 
 //
