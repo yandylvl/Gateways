@@ -7,7 +7,10 @@ axios.interceptors.response.use(null, (error) => {
     error.response.status < 500;
 
   //TODO: use a logger
-  if (!expectedErrors) console.log("A unexpected error occurred");
+  if (!expectedErrors)
+    console.log(
+      "A unexpected error occurred, handle it using a logger (sentry.io)"
+    );
 
   return Promise.reject(error);
 });

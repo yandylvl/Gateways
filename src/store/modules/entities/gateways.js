@@ -131,6 +131,8 @@ export const deleteGateway = (gatewayId) =>
     onSuccess: gatewayDeleted.type,
     onError: gatewayDeleteFailed.type,
   });
+
+//TODO: improve using patch
 export const editGateway = (gateway) =>
   apiCallBegan({
     url: `${url}/${gateway.id}`,

@@ -9,7 +9,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import { Header } from "../../components";
+import { Header, Toast } from "../../components";
 import { initGoogleAuth } from "../../store/modules/auth/auth";
 import createTheme from "../../theme/theme";
 import {
@@ -22,6 +22,7 @@ import Landing from "../landing/landing";
 import Login from "../login/login";
 import NotFound from "../not-found/not-found";
 import Signup from "../signup/signup";
+import "react-toastify/dist/ReactToastify.css";
 
 const theme = createTheme;
 
@@ -56,6 +57,8 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <StyledEngineProvider injectFirst>
+        <Toast />
+
         {/* Your component tree. Now you can override MUI's styles. */}
 
         <BrowserRouter>

@@ -66,7 +66,7 @@ const DrawerMenu = () => {
             <ListItemText primary="Gateways" />
           </ListItem>
         </Link>
-        <Link component={RouterLink} to="/peripherals">
+        <Link component={RouterLink} to="/gateways">
           <ListItem button>
             <ListItemIcon>
               <DevicesOther color="primary" />
