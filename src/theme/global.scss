@@ -1,6 +1,11 @@
 .MuiButton-root {
   font-family: "Montserrat";
   border-radius: 0;
+
+  .MuiTypography-root {
+    font-family: "Montserrat";
+    font-size: 0.875rem;
+  }
 }
 
 .MuiLink-root {

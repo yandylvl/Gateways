@@ -34,6 +34,7 @@ const GatewayForm = ({
   name = "",
   address = "",
   disableSN = false,
+  defaultExpanded,
 }) => {
   const themeFont = createHeadingFontTheme;
 
@@ -97,6 +98,7 @@ const GatewayForm = ({
         onDeletePeripheral={handleDeletePeripheral}
         onChangeName={handleChangeName}
         onChangeStatus={handleChangeStatus}
+        defaultExpanded={defaultExpanded}
       />
     );
   };
@@ -128,6 +130,9 @@ const GatewayForm = ({
                   autoFocus
                   defaultValue={serialNumber}
                   disabled={disableSN}
+                  inputProps={{
+                    maxLength: 15,
+                  }}
                   id="serialNumber"
                   label="Serial Number"
                   name="serialNumber"
@@ -139,7 +144,6 @@ const GatewayForm = ({
                 <TextField
                   required
                   fullWidth
-                  autoFocus
                   defaultValue={name}
                   id="name"
                   label="Name"
@@ -152,7 +156,6 @@ const GatewayForm = ({
                 <TextField
                   required
                   fullWidth
-                  autoFocus
                   defaultValue={address}
                   id="address"
                   label="IPv4 Address"
@@ -171,19 +174,20 @@ const GatewayForm = ({
                 {renderPeripherals()}
               </Grid>
 
-              {peripherals?.length < 10 && (
-                <Grid item xs={12}>
-                  <Divider>
-                    <IconButton
-                      aria-label="accept"
-                      color="primary"
-                      onClick={handleAddPeripheral}
-                    >
-                      <AddBox />
-                    </IconButton>
-                  </Divider>
-                </Grid>
-              )}
+              <Grid item xs={12}>
+                <Divider>
+                  {/* {peripherals?.length < 10 && ( */}
+                  <IconButton
+                    aria-label="accept"
+                    color="primary"
+                    disabled={peripherals?.length >= 10}
+                    onClick={handleAddPeripheral}
+                  >
+                    <AddBox />
+                  </IconButton>
+                  {/* )} */}
+                </Divider>
+              </Grid>
 
               <Grid item xs={12}>
                 <Button

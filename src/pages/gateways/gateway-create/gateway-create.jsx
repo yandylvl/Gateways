@@ -34,6 +34,7 @@ const GatewayCreate = () => {
       setUID={setUID}
       onSubmit={onSubmit}
       action="Create"
+      defaultExpanded={true}
     />
   );
 };

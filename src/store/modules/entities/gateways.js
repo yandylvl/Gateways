@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 import { apiCallBegan } from "../../actions/api";
 
@@ -146,4 +146,11 @@ export const editGateway = (gateway) =>
 // Selector
 //
 
-//TODO: create Selectors
+export const getGatewaysByPeripheralsCount = (filterCount) =>
+  createSelector(
+    (state) => state.entities.gateways.list,
+    (list) =>
+      filterCount === ""
+        ? list
+        : list.filter((g) => g.peripherals.length === filterCount)
+  );

@@ -19,11 +19,12 @@ const PeripheralsList = ({
   onDeletePeripheral,
   onChangeName,
   onChangeStatus,
+  defaultExpanded = false,
 }) => {
   const theme = useTheme();
 
   return peripherals?.map((peripheral, index) => (
-    <Accordion key={index}>
+    <Accordion key={index} defaultExpanded={defaultExpanded}>
       <AccordionSummary
         expandIcon={<ExpandMore />}
         aria-controls="panel1a-content"
@@ -56,9 +57,11 @@ const PeripheralsList = ({
       <AccordionDetails>
         <Grid container spacing={1} alignItems="center" justifyContent="right">
           <Grid item xs={10}>
+            {console.log(`rendering`)}
             <TextField
               required
               fullWidth
+              autoFocus
               id={`vendor${index}`}
               label="Vendor"
               value={peripheral.vendor}

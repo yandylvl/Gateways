@@ -1,31 +1,45 @@
-import { Box, Button, Container, Grid, Typography } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
+import _ from "lodash";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 
 import {
+  FilterSection,
   GatewayCard,
+  GatewayHeader,
+  Pagination,
   PeripheralsItems,
   ProgressBar,
   RequireAuth,
 } from "../../../components";
-import { loadGateways } from "../../../store/modules/entities/gateways";
+import {
+  getGatewaysByPeripheralsCount,
+  loadGateways,
+} from "../../../store/modules/entities/gateways";
+import paginate from "./../../../utils/paginate";
 
 const GatewayList = () => {
   const dispatch = useDispatch();
 
-  const {
-    list: gateways,
-    loading,
-    errors,
-  } = useSelector((state) => state.entities.gateways);
+  const { pageSize, currentPage, filterCount, sortBy, order } = useSelector(
+    (state) => state.ui.gateways
+  );
+
+  const { loading, errors } = useSelector((state) => state.entities.gateways);
+
+  const filtered = useSelector((state) =>
+    getGatewaysByPeripheralsCount(filterCount)(state)
+  );
+  const sorted = sortBy === "" ? filtered : _.orderBy(filtered, sortBy, order);
+  const paginated = paginate(sorted, currentPage, pageSize);
 
   useEffect(() => {
     dispatch(loadGateways());
   }, [dispatch]);
 
   const renderGatewaysList = () => {
-    return gateways.map((gateway) => (
+    return paginated.map((gateway) => (
       <Grid item xs md={6} key={gateway.id}>
         <GatewayCard {...gateway}>
           <PeripheralsItems peripherals={gateway.peripherals} />
@@ -45,47 +59,16 @@ const GatewayList = () => {
   };
 
   return (
-    <Container maxWidth="xl">
-      {/*TODO: refactor to a component */}
-      <Grid
-        container
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        py={2}
-      >
-        <Typography variant="h4" component="h1">
-          Gateways
-        </Typography>
-
-        <Button
-          variant="contained"
-          component={RouterLink}
-          to="/gateways/create"
-          sx={{ textTransform: "none" }}
-        >
-          Create New Gateway
-        </Button>
-      </Grid>
+    <Container maxWidth="xl" sx={{ pb: 7 }}>
+      <GatewayHeader />
 
       {loading ? (
         <ProgressBar />
       ) : (
         !errors.length && (
           <React.Fragment>
-            <Grid
-              container
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              py={1}
-            >
-              <Box>
-                <Typography sx={{ display: { xs: "none", sm: "inline" } }}>
-                  Showing {gateways.length} gateways
-                </Typography>
-              </Box>
-            </Grid>
+            <FilterSection filtered={filtered} />
+
             <Grid
               container
               spacing={2}
@@ -94,6 +77,14 @@ const GatewayList = () => {
             >
               {renderGatewaysList()}
             </Grid>
+
+            {paginated.length > 0 && (
+              <Pagination
+                currentPage={currentPage}
+                pageSize={pageSize}
+                totalCount={filtered.length}
+              ></Pagination>
+            )}
           </React.Fragment>
         )
       )}
