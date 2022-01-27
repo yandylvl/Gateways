@@ -1,0 +1,38 @@
+section {
+  position: relative;
+  z-index: 55;
+}
+
+.landing-section-container {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 100%;
+  height: 100%;
+  padding: 75px 16px;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .landing-section-container {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .landing-section-container {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .landing-section-container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .landing-section-container {
+    padding-top: 150px;
+    padding-bottom: 150px;
+    width: 1170px;
+  }
+}

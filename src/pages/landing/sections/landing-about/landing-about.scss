@@ -1,0 +1,60 @@
+@import "../../../../theme/variables.scss";
+@import "../../Landing.scss";
+
+.small-text {
+  font-weight: 700;
+  font-size: 16px;
+  // text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: 10px;
+}
+
+.section-header {
+  margin-bottom: 30px;
+  font-size: 40px;
+  position: relative;
+  word-wrap: break-word;
+  font-weight: 300;
+}
+
+.section-about {
+  background-image: url(./about.jpg);
+  background-position: right center;
+  background-size: cover;
+
+  // /* Set a specific height */
+  // min-height: 200px;
+
+  // /* Create the parallax scrolling effect */
+  // background-attachment: fixed;
+}
+
+.highlight {
+  color: $primary;
+  text-shadow: 0 0.1px 0px rgb(0 0 0 / 95%);
+}
+
+.small-text + .section-header {
+  margin-top: -10px;
+}
+
+.margin-top-30 {
+  margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+  .section-header {
+    font-size: 38px;
+  }
+}
+@media (min-width: 600px) {
+  .about-container {
+    text-align: left;
+  }
+}
+
+@media (min-width: 992px) {
+  .section-about {
+    background-position: center center;
+  }
+}
