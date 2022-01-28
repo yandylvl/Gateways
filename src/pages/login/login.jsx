@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -9,8 +10,10 @@ import {
   Link,
   TextField,
   Typography,
+  InputAdornment,
+  IconButton,
 } from "@mui/material/";
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -32,11 +35,15 @@ const schema = yup.object({
   password: yup.string().password().required(),
 });
 
+//TODO: refactor with signup form
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
+
+  const [showPass, setShowPass] = useState(false);
 
   const {
     register,
@@ -45,6 +52,14 @@ const Login = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
+  const handleClickShowPassword = () => {
+    setShowPass(!showPass);
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const onSubmit = (data) => {
     try {
@@ -100,12 +115,26 @@ const Login = () => {
               fullWidth
               name="password"
               label="Password"
-              type="password"
+              type={showPass ? "text" : "password"}
               id="password"
               autoComplete="current-password"
               {...register("password")}
               error={Boolean(errors.password)}
               helperText={errors.password?.message}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPass ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
