@@ -37,10 +37,11 @@ const styles = {
 const App = () => {
   const dispatch = useDispatch();
 
-  //Initialize Google oAuth to allow proper update of isSignedIn
+  //Initialize Google oAuth to allow proper update of isSignedIn if it is not manual register
   useEffect(() => {
     dispatch(initGoogleAuth());
   }, [dispatch]);
+
   const renderRoutes = () => {
     return (
       <Routes>

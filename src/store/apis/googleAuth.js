@@ -32,7 +32,7 @@ export default class GoogleAuth {
   }
 
   signOut() {
-    return this.auth2?.signOut();
+    return this.auth2?.signOut().catch((error) => console.log(error));
   }
 
   isSignedIn() {

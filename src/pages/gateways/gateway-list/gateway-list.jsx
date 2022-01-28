@@ -26,7 +26,7 @@ const GatewayList = () => {
     (state) => state.ui.gateways
   );
 
-  const { loading, errors } = useSelector((state) => state.entities.gateways);
+  const { loading } = useSelector((state) => state.entities.gateways);
 
   const filtered = useSelector((state) =>
     getGatewaysByPeripheralsCount(filterCount)(state)
@@ -65,31 +65,29 @@ const GatewayList = () => {
       {loading ? (
         <ProgressBar />
       ) : (
-        !errors.length && (
-          <React.Fragment>
-            <FilterSection filtered={filtered} />
+        <React.Fragment>
+          <FilterSection filtered={filtered} />
 
-            <Grid
-              container
-              spacing={2}
-              justifyContent="space-between"
-              direction={{ xs: "column", md: "row" }}
-            >
-              {renderGatewaysList()}
-            </Grid>
+          <Grid
+            container
+            spacing={2}
+            justifyContent="space-between"
+            direction={{ xs: "column", md: "row" }}
+          >
+            {renderGatewaysList()}
+          </Grid>
 
-            {paginated.length > 0 && (
-              <Pagination
-                currentPage={currentPage}
-                pageSize={pageSize}
-                totalCount={filtered.length}
-              ></Pagination>
-            )}
-          </React.Fragment>
-        )
+          {paginated.length > 0 && (
+            <Pagination
+              currentPage={currentPage}
+              pageSize={pageSize}
+              totalCount={filtered.length}
+            ></Pagination>
+          )}
+        </React.Fragment>
       )}
     </Container>
   );
 };
 
-export default RequireAuth(React.memo(GatewayList));
+export default RequireAuth(GatewayList);

@@ -4,11 +4,16 @@ import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 
 const Toast = () => {
-  const { errors } = useSelector((state) => state.entities.gateways);
+  const { errors: gatewaysError } = useSelector(
+    (state) => state.entities.gateways
+  );
+  const { errors: authError } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    if (errors.length) toast.error(errors);
-  }, [errors]);
+    if (gatewaysError.length)
+      toast.error(gatewaysError[gatewaysError.length - 1]);
+    if (authError.length) toast.error(authError[authError.length - 1]);
+  }, [gatewaysError, authError]);
 
   return <ToastContainer />;
 };

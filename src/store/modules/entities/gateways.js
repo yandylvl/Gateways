@@ -8,8 +8,7 @@ const slice = createSlice({
     list: [],
     selected: null,
     loading: false,
-    errors: "",
-    // lastFetch: null,
+    errors: [],
   },
   reducers: {
     gatewaysRequested: (gateways, action) => {
@@ -18,11 +17,11 @@ const slice = createSlice({
     gatewaysReceived: (gateways, action) => {
       gateways.list = action.payload;
       gateways.loading = false;
-      gateways.errors = "";
+      gateways.errors.length = 0;
     },
     gatewaysRequestFailed: (gateways, action) => {
       gateways.loading = false;
-      gateways.errors = action.payload.message;
+      gateways.errors.push(action.payload.message);
     },
     getGatewayRequested: (gateways, action) => {
       gateways.loading = true;
@@ -36,7 +35,7 @@ const slice = createSlice({
       let msg = action.payload.message;
       if (action.payload.status === 404)
         msg = "The requested gateway could not be found";
-      gateways.errors = msg;
+      gateways.errors.push(msg);
     },
     gatewayAdded: (gateways, action) => {
       gateways.list.push(action.payload);
@@ -47,7 +46,7 @@ const slice = createSlice({
       let msg = action.payload.message;
       if (action.payload.status === 500)
         msg = "There is already a gateway with the provided Serial Number";
-      gateways.errors = msg;
+      gateways.errors.push(msg);
     },
     gatewayDeleted: (gateways, action) => {
       gateways.list = gateways.list.filter((g) => g.id !== action.payload);
@@ -59,7 +58,7 @@ const slice = createSlice({
       let msg = action.payload.message;
       if (action.payload.status === 404)
         msg = "This gateway has already been deleted";
-      gateways.errors = msg;
+      gateways.errors.push(msg);
     },
     gatewayEdited: (gateways, action) => {
       const index = gateways.list.findIndex((g) => g.id === action.payload.id);
@@ -68,7 +67,7 @@ const slice = createSlice({
     },
     gatewayEditFailed: (gateways, action) => {
       //TODO: improve handling type of error
-      gateways.errors = action.payload.message;
+      gateways.errors.push(action.payload.message);
     },
   },
 });

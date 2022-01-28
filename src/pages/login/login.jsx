@@ -12,7 +12,7 @@ import {
 } from "@mui/material/";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Link as RouterLink,
   Navigate,
@@ -23,6 +23,7 @@ import * as yup from "yup";
 import YupPassword from "yup-password";
 
 import { GoogleButton, MiniLogo } from "../../components/";
+import { tryManualLogin } from "../../store/modules/auth/auth";
 
 YupPassword(yup); // extend yup
 
@@ -32,6 +33,7 @@ const schema = yup.object({
 });
 
 const Login = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const isSignedIn = useSelector((state) => state.auth.isSignedIn);
@@ -45,10 +47,12 @@ const Login = () => {
   });
 
   const onSubmit = (data) => {
-    console.log({
-      email: data.email,
-      password: data.password,
-    });
+    try {
+      dispatch(tryManualLogin(data));
+    } catch (e) {
+      //TODO: use logger (sentry.io)
+      console.log(e);
+    }
   };
 
   const renderLogin = () => {

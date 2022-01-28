@@ -5,7 +5,10 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { tryLogoutFormGoogle } from "../../../store/modules/auth/auth";
+import {
+  tryLogoutFormGoogle,
+  tryManualLogout,
+} from "../../../store/modules/auth/auth";
 
 const ProfileSettings = () => {
   const profileImage = useSelector((state) => state.auth.profilePicUrl);
@@ -32,7 +35,9 @@ const ProfileSettings = () => {
   const handleLogoutClick = useCallback(
     (event) => {
       event.preventDefault();
+      //FIXME: use the right logout method based on the login method
       dispatch(tryLogoutFormGoogle(navigate("/", { replace: true })));
+      dispatch(tryManualLogout(navigate("/", { replace: true })));
     },
     [dispatch, navigate]
   );

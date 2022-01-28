@@ -14,6 +14,7 @@ const slice = createSlice({
     userId: loginData?.userId,
     profileName: loginData?.profileName,
     profilePicUrl: loginData?.profilePicUrl,
+    errors: [],
   },
   reducers: {
     authChanged: (
@@ -24,22 +25,26 @@ const slice = createSlice({
       auth.userId = userId;
       auth.profileName = profileName;
       auth.profilePicUrl = profilePicUrl;
+      auth.errors.length = 0;
+    },
+    authError: (auth, action) => {
+      auth.errors.push(action.payload);
     },
   },
 });
 
-const { authChanged } = slice.actions;
+const { authChanged, authError } = slice.actions;
 export default slice.reducer;
 
 //
 // Action Creators
 //
 
-export const initGoogleAuth = () => (dispatch) => {
+export const initGoogleAuth = () => (dispatch, getState) => {
   googleAuth
     .init()
     .then((googleAuth) => {
-      dispatch(updateSignInStatus());
+      if (!getState().auth?.isSignedIn) dispatch(updateSignInStatus());
       googleAuth.signInListen(() => dispatch(updateSignInStatus()));
     })
     .catch((error) => console.error(error));
@@ -68,7 +73,79 @@ export const tryLoginWithGoogle = (callback) => () => {
   authChangedCallback = callback;
   googleAuth.signIn();
 };
+
 export const tryLogoutFormGoogle = (callback) => () => {
   authChangedCallback = callback;
   googleAuth.signOut();
+};
+
+//TODO: improve using api middleware, right now is like this in order to gain in time
+
+export const tryManualLogin = (dataInfo) => (dispatch) => {
+  fetch("http://localhost:3004/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: dataInfo.email,
+      password: dataInfo.password,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const userInfo = {
+        isSignedIn: true,
+        userId: data.user.id,
+        profileName: data.user.firstName,
+        profilePicUrl: "",
+      };
+
+      dispatch(authChanged(userInfo));
+
+      localStorage.setItem("loginData", JSON.stringify(userInfo));
+    })
+    .catch((error) => {
+      dispatch(authError("Invalid login credentials"));
+    });
+};
+
+export const trySignup = (dataInfo) => (dispatch) => {
+  fetch("http://localhost:3004/users", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: dataInfo.email,
+      password: dataInfo.password,
+      firstName: dataInfo.firstName,
+      lastName: dataInfo.lastName,
+    }),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      const userInfo = {
+        isSignedIn: true,
+        userId: data.user.id,
+        profileName: data.user.firstName,
+        profileLastName: data.user.lastName,
+        profilePicUrl: "",
+      };
+
+      dispatch(authChanged(userInfo));
+
+      localStorage.setItem("loginData", JSON.stringify(userInfo));
+    })
+    .catch((error) => {
+      dispatch(authError("This email already exist"));
+    });
+};
+
+export const tryManualLogout = () => (dispatch) => {
+  localStorage.removeItem("loginData");
+  dispatch(
+    authChanged({
+      isSignedIn: false,
+      userId: "",
+      profileName: "",
+      profilePicUrl: "",
+    })
+  );
 };

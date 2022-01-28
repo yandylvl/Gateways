@@ -57,7 +57,6 @@ const PeripheralsList = ({
       <AccordionDetails>
         <Grid container spacing={1} alignItems="center" justifyContent="right">
           <Grid item xs={10}>
-            {console.log(`rendering`)}
             <TextField
               required
               fullWidth
