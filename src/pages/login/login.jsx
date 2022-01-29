@@ -71,7 +71,7 @@ const Login = () => {
   };
 
   const renderLogin = () => {
-    // TODO: Refactor with SignUp
+    // FIXME: Refactor with SignUp
 
     return (
       <Container component="main" maxWidth="xs">

@@ -7,12 +7,10 @@ import {
   StyledEngineProvider,
   ThemeProvider,
 } from "@mui/material";
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { Footer, Header, Toast } from "../../components";
-import { initGoogleAuth } from "../../store/modules/auth/auth";
 import createTheme from "../../theme/theme";
 import {
   GatewayCreate,
@@ -35,13 +33,6 @@ const styles = {
 };
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  //Initialize Google oAuth to allow proper update of isSignedIn if it is not manual register
-  useEffect(() => {
-    dispatch(initGoogleAuth());
-  }, [dispatch]);
-
   const renderRoutes = () => {
     return (
       <Routes>

@@ -15,7 +15,7 @@ const requireAuth = (ChildComponent) => {
     });
 
     const shouldNavigateAway = () => {
-      if (isSignedIn === false) {
+      if (!isSignedIn) {
         navigate("/login", {
           state: { from: location.pathname },
         });

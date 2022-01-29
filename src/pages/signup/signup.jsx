@@ -66,11 +66,12 @@ const SignUp = () => {
     dispatch(trySignup(data));
   };
 
+  //FIXME: refactor with login
   return (
     <React.Fragment>
-      {isSignedIn === true && <Navigate to="/gateways" />}
-
-      {isSignedIn === false && (
+      {isSignedIn ? (
+        <Navigate to="/gateways" />
+      ) : (
         <Container component="main" maxWidth="xs">
           <Box
             sx={{

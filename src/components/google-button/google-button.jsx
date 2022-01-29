@@ -1,12 +1,19 @@
 import { Google } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { tryLoginWithGoogle } from "../../store/modules/auth/auth";
+import {
+  initGoogleAuth,
+  tryLoginWithGoogle,
+} from "../../store/modules/auth/auth";
 
 const GoogleButton = ({ navigate, children }) => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(initGoogleAuth());
+  }, [dispatch]);
 
   const handleLoginWithGoogleClick = useCallback(
     (event) => {

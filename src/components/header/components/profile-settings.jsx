@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import {
+  initGoogleAuth,
   tryLogoutFormGoogle,
   tryManualLogout,
 } from "../../../store/modules/auth/auth";
@@ -24,9 +25,13 @@ const ProfileSettings = () => {
 
   const isMenuOpen = Boolean(anchorEl);
 
-  const handleProfileMenuOpen = useCallback((event) => {
-    setAnchorEl(event.currentTarget);
-  }, []);
+  const handleProfileMenuOpen = useCallback(
+    (event) => {
+      dispatch(initGoogleAuth());
+      setAnchorEl(event.currentTarget);
+    },
+    [dispatch]
+  );
 
   const handleMenuClose = useCallback(() => {
     setAnchorEl(null);

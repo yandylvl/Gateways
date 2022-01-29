@@ -79,7 +79,7 @@ export const tryLogoutFormGoogle = (callback) => () => {
   googleAuth.signOut();
 };
 
-//TODO: improve using api middleware, right now is like this in order to gain in time
+//FIXME: improve using api middleware, right now is like this in order to gain in time
 
 export const tryManualLogin = (dataInfo) => (dispatch) => {
   fetch("http://localhost:3004/login", {

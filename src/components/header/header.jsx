@@ -1,6 +1,6 @@
 import "./header.scss";
 
-import { AppBar, Container, Skeleton, Toolbar } from "@mui/material";
+import { AppBar, Container, Toolbar } from "@mui/material";
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -23,18 +23,7 @@ const Header = () => {
 
             <Brand />
 
-            {isSignedIn === undefined ? (
-              <Skeleton
-                sx={{ bgcolor: "#3c331b" }}
-                variant="circular"
-                width={24}
-                height={24}
-              />
-            ) : isSignedIn ? (
-              <ProfileSettings />
-            ) : (
-              <Authorization />
-            )}
+            {isSignedIn ? <ProfileSettings /> : <Authorization />}
           </Toolbar>
         </Container>
       </AppBar>
