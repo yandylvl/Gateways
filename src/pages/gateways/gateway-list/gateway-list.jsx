@@ -11,7 +11,6 @@ import {
   Pagination,
   PeripheralsItems,
   ProgressBar,
-  RequireAuth,
 } from "../../../components";
 import {
   getGatewaysByPeripheralsCount,
