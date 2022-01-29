@@ -90,4 +90,4 @@ const GatewayList = () => {
   );
 };
 
-export default RequireAuth(GatewayList);
+export default GatewayList;
