@@ -21,11 +21,9 @@ const GatewayDetails = () => {
   const { id: gatewayId } = useParams();
 
   // const gateway = useSelector((state) => state.entities.gateways.selected);
-  const {
-    selected: gateway,
-    loading,
-    errors,
-  } = useSelector((state) => state.entities.gateways);
+  const { selected: gateway, loading } = useSelector(
+    (state) => state.entities.gateways
+  );
 
   useEffect(() => {
     dispatch(getGateway(gatewayId));
@@ -53,56 +51,54 @@ const GatewayDetails = () => {
       {loading ? (
         <ProgressBar />
       ) : (
-        !errors.length && (
-          <GatewayCard {...gateway}>
-            <Box sx={{ width: "100%" }}>
-              <Divider sx={{ py: 4 }}>Peripherals</Divider>
+        <GatewayCard {...gateway}>
+          <Box sx={{ width: "100%" }}>
+            <Divider sx={{ py: 4 }}>Peripherals</Divider>
 
-              <Grid
-                container
-                spacing={2}
-                alignItems="center"
-                justifyContent="center"
-                columns={30}
-              >
-                {renderPeripherals()}
+            <Grid
+              container
+              spacing={2}
+              alignItems="center"
+              justifyContent="center"
+              columns={30}
+            >
+              {renderPeripherals()}
+            </Grid>
+
+            <Divider sx={{ py: 3 }} />
+
+            <Grid container spacing={2} justifyContent="center" pt={2}>
+              <Grid item xs={12} sm={6} md={2}>
+                <Button
+                  variant="contained"
+                  component={RouterLink}
+                  to={`/gateways/edit/${gateway?.id}`}
+                  color="secondary"
+                  sx={{
+                    textTransform: "none",
+                    width: "100%",
+                  }}
+                >
+                  Edit
+                </Button>
               </Grid>
 
-              <Divider sx={{ py: 3 }} />
-
-              <Grid container spacing={2} justifyContent="center" pt={2}>
-                <Grid item xs={12} sm={6} md={2}>
-                  <Button
-                    variant="contained"
-                    component={RouterLink}
-                    to={`/gateways/edit/${gateway?.id}`}
-                    color="secondary"
-                    sx={{
-                      textTransform: "none",
-                      width: "100%",
-                    }}
-                  >
-                    Edit
-                  </Button>
-                </Grid>
-
-                <Grid item xs={12} sm={6} md={2}>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    sx={{
-                      textTransform: "none",
-                      width: "100%",
-                    }}
-                    onClick={handleDelete}
-                  >
-                    Delete
-                  </Button>
-                </Grid>
+              <Grid item xs={12} sm={6} md={2}>
+                <Button
+                  variant="contained"
+                  color="error"
+                  sx={{
+                    textTransform: "none",
+                    width: "100%",
+                  }}
+                  onClick={handleDelete}
+                >
+                  Delete
+                </Button>
               </Grid>
-            </Box>
-          </GatewayCard>
-        )
+            </Grid>
+          </Box>
+        </GatewayCard>
       )}
     </Container>
   );
