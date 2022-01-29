@@ -82,7 +82,7 @@ export const tryLogoutFormGoogle = (callback) => () => {
 //FIXME: improve using api middleware, right now is like this in order to gain in time
 
 export const tryManualLogin = (dataInfo) => (dispatch) => {
-  fetch("http://localhost:3004/login", {
+  fetch("https://gateways-json-server.herokuapp.com/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -109,7 +109,7 @@ export const tryManualLogin = (dataInfo) => (dispatch) => {
 };
 
 export const trySignup = (dataInfo) => (dispatch) => {
-  fetch("http://localhost:3004/users", {
+  fetch("https://gateways-json-server.herokuapp.com/users", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
