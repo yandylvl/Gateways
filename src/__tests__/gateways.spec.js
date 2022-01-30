@@ -6,6 +6,7 @@ import {
   deleteGateway,
   editGateway,
   getGatewaysByPeripheralsCount,
+  loadGateways,
 } from "../store/modules/entities/gateways";
 import configStore from "../store/configureStore";
 
@@ -26,6 +27,43 @@ describe("gatewaysSlice", () => {
         list: [],
       },
     },
+  });
+
+  describe("loading gateways", () => {
+    it("should be fetched from the server and put in the store", async () => {
+      fakeAxios.onGet("/gateways").reply(200, [{ id: 1 }]);
+
+      await store.dispatch(loadGateways());
+
+      expect(gatewaysSlice().list).toHaveLength(1);
+    });
+
+    describe("loading indicator", () => {
+      it("should be true while fetcihng the gateways", () => {
+        fakeAxios.onGet("/gateways").reply(() => {
+          expect(gatewaysSlice().loading).toBe(true);
+          return [200, [{ id: 1 }]];
+        });
+
+        store.dispatch(loadGateways());
+      });
+
+      it("should be false after the gateways are fetched", async () => {
+        fakeAxios.onGet("/gateways").reply(200, [{ id: 1 }]);
+
+        await store.dispatch(loadGateways());
+
+        expect(gatewaysSlice().loading).toBe(false);
+      });
+
+      it("should be false if the server return an error", async () => {
+        fakeAxios.onGet("/gateways").reply(500);
+
+        await store.dispatch(loadGateways());
+
+        expect(gatewaysSlice().loading).toBe(false);
+      });
+    });
   });
 
   it("should add the gateway to the store if it's saved to the server", async () => {
