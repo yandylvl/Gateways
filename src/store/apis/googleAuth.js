@@ -10,7 +10,7 @@ export default class GoogleAuth {
 
   init() {
     return new Promise((resolve, reject) => {
-      window.gapi.load("auth2", () => {
+      window.gapi?.load("auth2", () => {
         window.gapi.auth2
           .init({
             client_id: this.client_id,
