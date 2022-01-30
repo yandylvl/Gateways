@@ -92,18 +92,15 @@ export default slice.reducer;
 // Action Creators
 //
 
-const url = "/gateways";
+const url = process.env.REACT_APP_GATEWAYS_URL;
 
-export const loadGateways = () => (dispatch, getState) => {
-  dispatch(
-    apiCallBegan({
-      url,
-      onStart: gatewaysRequested.type,
-      onSuccess: gatewaysReceived.type,
-      onError: gatewaysRequestFailed.type,
-    })
-  );
-};
+export const loadGateways = () =>
+  apiCallBegan({
+    url,
+    onStart: gatewaysRequested.type,
+    onSuccess: gatewaysReceived.type,
+    onError: gatewaysRequestFailed.type,
+  });
 
 export const getGateway = (gatewayId) =>
   apiCallBegan({
