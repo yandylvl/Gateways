@@ -148,5 +148,5 @@ export const getGatewaysByPeripheralsCount = (filterCount) =>
     (list) =>
       filterCount === ""
         ? list
-        : list.filter((g) => g.peripherals.length === filterCount)
+        : list.filter((g) => g.peripherals?.length === filterCount)
   );

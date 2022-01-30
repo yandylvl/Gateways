@@ -3,7 +3,10 @@ import api from "./middlewares/api";
 
 import reducer from "./reducer";
 
-export const store = configureStore({
-  reducer,
-  middleware: [...getDefaultMiddleware(), api],
-});
+const configStore = () =>
+  configureStore({
+    reducer,
+    middleware: [...getDefaultMiddleware(), api],
+  });
+
+export default configStore;
