@@ -16,6 +16,7 @@ const MiniLogo = ({ color }) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        overflow: "hidden",
       }}
     >
       W
