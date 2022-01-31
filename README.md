@@ -10,6 +10,12 @@ pass: 123qweQ@
 
 ## Available Scripts
 
+First you need to install node_modules in both projects, client and server, in each directory run:
+
+```sh
+ npm install
+```
+
 - Using dev mode\
    In the client project directory, you can run:
 
