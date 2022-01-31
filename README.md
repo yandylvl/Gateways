@@ -16,26 +16,8 @@ First you need to install node_modules in both projects, client and server, in e
  npm install
 ```
 
-- Using dev mode\
-   In the client project directory, you can run:
-
-  ```sh
-  npm start
-  ```
-
-  Runs the app in the development mode.\
-   Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-  You may see any lint errors in the console.
-
-  **Note: To see the gateways you must run the server locally, in the server directory, you can run:**
-
-  ```sh
-  node server.js
-  ```
-
 - Using build mode\
-   You can build the solution, in the client directory run:
+   Build the solution, in the client directory run:
 
   ```sh
   npm run build
@@ -54,6 +36,30 @@ First you need to install node_modules in both projects, client and server, in e
   ```
 
   **Note: In this mode you don't need to run the server locally because the env variables are set to the server deployed in heroku**
+
+<br/>
+
+- Using dev mode\
+   In the client project directory, you can run:
+
+  ```sh
+  npm start
+  ```
+
+  Runs the app in the development mode.\
+   Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+  You may see any lint errors in the console.
+
+  **Note: To see the gateways you must run the server locally**
+
+  - First download the server from [https://github.com/yandylvl/Gateways-server](https://github.com/yandylvl/Gateways-server)
+
+  - In the server project directory, you can run:
+
+    ```sh
+    node server.js
+    ```
 
 ## Test
 
