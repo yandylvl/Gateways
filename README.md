@@ -1,6 +1,6 @@
 # Installation guides.
 
-You can view a fully working example of the proyect at [https://gateways-app.herokuapp.com/](https://gateways-app.herokuapp.com/)
+You can view a fully working example of the project at [https://gateways-app.herokuapp.com/](https://gateways-app.herokuapp.com/)
 
 In order to Edit/Delete gateways you must be logged in on the app, whether by using Google Auth, signing up on the site, or using this default login credentials:
 
